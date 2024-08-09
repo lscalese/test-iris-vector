@@ -1,0 +1,6 @@
+
+
+Swagger interface : http://localhost:55038/swagger-ui/index.html
+
+openapi spec for swagger : http://localhost:55038/careia/_spec
+

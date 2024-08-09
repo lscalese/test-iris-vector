@@ -7,9 +7,20 @@
       <Description>The simplest template to run embedded python</Description>
       <Packaging>module</Packaging>
       <SourcesRoot>src</SourcesRoot>
-      <Resource Name="dc.python.PKG"/>
+      <Resource Name="careia.PKG"/>
       <FileCopy Name="python/" Target="${libdir}python/"/>
       <FileCopy Name="data/" Target="${libdir}data/${packagename}/"/>
+      <CSPApplication 
+        Url="/careia"
+        Recurse="1"
+        MatchRoles=":${dbrole}"
+        PasswordAuthEnabled="1"
+        UnauthenticatedEnabled="0"
+        DispatchClass="careia.rest.disp"
+        ServeFiles="1"
+        CookiePath="/careia/"
+        UseCookies="2"
+      />
     </Module>
   </Document>
 </Export>

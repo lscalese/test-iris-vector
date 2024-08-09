@@ -1,6 +1,7 @@
 ARG IMAGE=intersystemsdc/irishealth-community
 ARG IMAGE=intersystemsdc/iris-community:preview
 ARG IMAGE=intersystemsdc/iris-community
+ARG IMAGE=intersystemsdc/irishealth-community:preview
 FROM $IMAGE
 
 WORKDIR /home/irisowner/dev
