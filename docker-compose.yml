@@ -6,9 +6,18 @@ services:
       dockerfile: Dockerfile
     restart: always
     ports:
-      - 1972
+      - 55072:1972
       - 55038:52773
       - 53773
       - 55030:5000
     volumes:
       - ./:/home/irisowner/dev
+  ollama:
+    image: ollama/ollama:latest
+    environment:
+      - MODEL=orca-mini
+    volumes:
+      - ./ollama/:/root/.ollama
+    ports:
+      - 11434:11434
+    entrypoint: ["sh", "/root/.ollama/entrypoint.sh"]

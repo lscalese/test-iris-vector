@@ -1,7 +1,7 @@
 Class careia.messages.VectorResponseMSG Extends Ens.Response
 {
 
-Property embedding As %Vector;
+Property embedding As %Vector(DATATYPE = "DOUBLE");
 
 Storage Default
 {

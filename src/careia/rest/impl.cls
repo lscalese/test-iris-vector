@@ -15,8 +15,6 @@ ClassMethod putPatientData(messageRequest As careia.rest.requests.putPatientData
 {
 	; Implement your service here.
 	; Return {}
-	
-	Set rest = messageRequest.putPatientDatabody.%JSONExportToString(.str)
 
 	Set response = ..InvokePutPatientData(messageRequest.putPatientDatabody)
 

@@ -25,8 +25,13 @@ Method GetVector(pRequest As careia.messages.PutPatientDataMSG, Output pResponse
 
     $$$LOGINFO("PutPatientDataBP:GetVector")
 
-    Set sc = ..SendRequestSync("careia.bo.EmbeddingBO", .pRequest, .pResponse, 15)
+    ;Set sc = ..SendRequestSync("careia.bo.EmbeddingBO", .pRequest, .pResponse, 15)
 
+    Set stringContainer = ##class(Ens.StringContainer).%New()
+    Set stringContainer.StringValue = pRequest.sentences.GetAt(1)
+
+    Set sc = ..SendRequestSync("careia.bo.OllamaBO", .stringContainer, .pResponse, 15)
+    
     Return sc
 }
 

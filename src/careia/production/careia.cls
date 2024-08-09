@@ -14,6 +14,10 @@ XData ProductionDefinition
   </Item>
   <Item Name="careia.bo.StorePatientEmbedding" Category="" ClassName="careia.bo.StorePatientEmbedding" PoolSize="1" Enabled="true" Foreground="false" Comment="" LogTraceEvents="false" Schedule="">
   </Item>
+  <Item Name="careia.bo.OllamaBO" Category="" ClassName="careia.bo.OllamaBO" PoolSize="1" Enabled="true" Foreground="false" Comment="" LogTraceEvents="false" Schedule="">
+    <Setting Target="Adapter" Name="HTTPPort">11434</Setting>
+    <Setting Target="Adapter" Name="HTTPServer">ollama</Setting>
+  </Item>
 </Production>
 }
 
