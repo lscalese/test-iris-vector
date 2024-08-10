@@ -12,6 +12,7 @@ services:
       - 55030:5000
     volumes:
       - ./:/home/irisowner/dev
+    command: ["-a", "/home/irisowner/dev/iris_post_start_script.sh"]
   ollama:
     image: ollama/ollama:latest
     environment:

@@ -40,7 +40,7 @@ Method embeddingsPOST(requestMessage As Ens.StringContainer, Output responseMess
     
     If pHttpResponse.StatusCode = "200" {
         Set json = {}.%FromJSON(pHttpResponse.Data)
-        $$$LOGINFO(json.%ToJSON())
+        ;$$$LOGINFO(json.%ToJSON())
         Set responseMessage = ##class(careia.messages.VectorResponseMSG).%New()
         Set responseMessage.embedding = responseMessage.embeddingDisplayToLogical(json.embeddings.%Get(0))
     }
