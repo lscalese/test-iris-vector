@@ -45,7 +45,18 @@ Le portail admin http://localhost:55038/csp/sys/utilhome.csp
 
 Vous pouvez modifier la configuration des ports dans `docker-compose.yml`  
 
+Si vous faites un `down` du container, au restart il reprendra son état au moment du build.  Si vous voulez recharger votre code ObjectScript sans devoir refaire un docker compose build chronophage, vous pouvez simplement ouvrir un terminal IRIS et faire :
+
+```objectscript
+Set sc = $SYSTEM.OBJ.LoadDir("/home/irisowner/dev/src/","ck", , 1)
+```
+
+Vous pouvez même ajouter cette ligne directement dans `iris_post_start_script.sh` pour que ce soit effectué automatiquement à chaque démarrage du container.  
+
+
 ## Interface swagger-ui
+
+### API REST IRIS
 
 L'interface swagger-ui pour tester le push de données via l'api est REST est disponible à l'url [http://localhost:55038/swagger-ui/index.html](http://localhost:55038/swagger-ui/index.html).  
 

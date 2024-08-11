@@ -17,6 +17,11 @@ XData ProductionDefinition
   <Item Name="careia.bo.OllamaBO" Category="" ClassName="careia.bo.OllamaBO" PoolSize="1" Enabled="true" Foreground="false" Comment="" LogTraceEvents="false" Schedule="">
     <Setting Target="Adapter" Name="HTTPPort">11434</Setting>
     <Setting Target="Adapter" Name="HTTPServer">ollama</Setting>
+    <Setting Target="Host" Name="FailureTimeout">30</Setting>
+  </Item>
+  <Item Name="careia.bs.GenerateAnswer" Category="" ClassName="careia.bs.GenerateAnswer" PoolSize="0" Enabled="true" Foreground="false" Comment="" LogTraceEvents="false" Schedule="">
+  </Item>
+  <Item Name="careia.bs.Chat" Category="" ClassName="careia.bs.Chat" PoolSize="0" Enabled="true" Foreground="false" Comment="" LogTraceEvents="false" Schedule="">
   </Item>
 </Production>
 }
