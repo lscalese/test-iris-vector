@@ -1,6 +1,20 @@
+curl http://localhost:11434/api/generate -d '{
+  "model": "orca-mini",
+  "prompt": "En utilisant ces données {data}. répond à ce prompt: à quelles allergies est-il positif?",
+  "data": "il est positif aux allergies aux chats, chiens et graminés",
+  "stream": false
+}'
 
 
-Swagger interface : http://localhost:55038/swagger-ui/index.html
 
-openapi spec for swagger : http://localhost:55038/careia/_spec
+
+LM Studio pour tester prompt
+
+LM studio
+
+Msty -> RAG local (choix db Vectorielle)
+
+Anything LLM
+
+
 

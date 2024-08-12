@@ -16,7 +16,7 @@ services:
   ollama:
     image: ollama/ollama:latest
     environment:
-      - MODEL=orca-mini
+      - MODEL=mistral
     volumes:
       - ./ollama/:/root/.ollama
     ports:
