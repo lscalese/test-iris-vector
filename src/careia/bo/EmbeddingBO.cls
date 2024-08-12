@@ -55,10 +55,10 @@ return irisArray
 XData MessageMap
 {
 <MapItems>
-        <MapItem MessageType="careia.messages.PutPatientDataMSG">
-            <Method>GetEmbeddingForPatient</Method>
-        </MapItem>
-    </MapItems>
+    <MapItem MessageType="careia.messages.PutPatientDataMSG">
+        <Method>GetEmbeddingForPatient</Method>
+    </MapItem>
+</MapItems>
 }
 
 }

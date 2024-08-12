@@ -1,0 +1,39 @@
+Comptes Rendus d'Hospitalisation
+
+Numéro du Patient : 1234567890-ABCDEFGHIJKL-1234567890-MOISES
+Nom : Moisés García Pérez
+Date de Naissance : 1/1/1990
+Adresse : Avenue des Fleurs, 27, Paris, France
+Profession : Programmeur informatique
+Numéro d'Assurance Maladie (SSS) : XXXXXXXXXX-YYYYYYY-ZZZZZZZ-AAAABBBBCCC
+Date de l'Admission: 15 Février 2023
+Date de la Sortie: en cours
+Diagnostic Principal: Pneumonie bacterielle, SARS-CoV-2 positive
+
+Exploration Clinique:
+Poids : 78 kg
+Taille : 1.80 mètre
+Température Focale Oral (FTO) : 36.5°Celsius (97.7°Fahrenheit)
+Fréquence Cardiaque: 92 bpm
+Fréquence Respiratoire: 24/minute
+Saturation d'oxygène à la peau (SpO2): 93% en oxygène ambiant, 97% sur un lit de soins intensifs
+Tonus Abdominal : Flexible et normale
+Examen Pulmonaire: Éclats vraiment bruyants aux plages inférieures du bas-ventre. Les aires alvéolaires inférieurs droite et gauche sont étendues, diffuses et non consolideantes. La fréquence respiratoire est accélérée, avec une sibilance au niveau des lobes supérieur droit et inférieur droit.
+Examen Cardiaque: L'examen cardiaque était normal sans claudication ni murmure audible à l'auscultation stéthoscopique.
+Examen Général: Les plages post-rachidiennes étaient flexibles, les membres supérieurs et inférieurs mobilisables avec un bon mouvement dans toutes les directions. Il n'y avait pas de signes de défauts cicatriciels ou traumatiques visibles sur la peau ni aucun signe d'inflammation générale apparent.
+
+Diagnostic différentiel:
+
+Pneumonie bacterienne, COVID-19, Infection pulmonaire sévère (IPS) et autres infections respiratoires basses
+Traitement:
+Antibiotiques intraveineux: Levofloxacin 500 mg/24 heures
+Oxygène en vente de soins intensifs
+Fevipirine pour l'ARDS (si nécessaire)
+Acide acétylcystéine inhalation (dans la mesure du possible)
+Paracétamol orale 1000 mg tous les 4 heures comme antalgique et anti pyretique.
+Vitamine C intraveineuse à raison de 2 g/jour.
+Ont été prescrits des analgésiques opioïdes pour le contrôle de la douleur, mais ils n'ont pas encore été utilisés en raison d'une faible intensité actuelle de douleur.
+
+Suivi: Le patient est suivi quotidiennement par l'équipe de soins intégrée du service des maladies infectieuses et respiratoires. Les antibiotiques seront continués pendant une durée minimale de 7 jours, suivant les recommandations locales. Une radiographie thoracique sera effectuée dans les 24 heures pour évaluer l'évolution du tableau clinique et la réponse à la thérapie antibiotique. Le patient est également considéré comme potentiellement candidat à un traitement antiviral spécifique en cas de confirmation positive d'une infection par SARS-CoV-2. Les sondages bronchiaux sont prévus pour éliminer une cause bactérienne alternative, si nécessaire. Enfin, le patient sera régulièrement consulté par l'équipe de soins intensifs pour surveiller son état général et la progression du tableau clinique.
+
+

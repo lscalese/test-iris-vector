@@ -69,6 +69,31 @@ Le modèle utilisé par Ollama est spécifié dans le le fichier `docker-compose
 Si vous changez le modèle par défaut, pensez à adapter la configuration du Business Operation `careia.bo.OllamaBO`.  
 Cela peut se faire très facilement via la configuration de la production dans le portail d'administration (paramètre OllamaModel quand vous éditez la configuration du BO).  
 
+## Utilisation GPU
+
+Sous Linux pour utiliser vos GPUs nvidia si vous en avez : 
+
+```
+curl -fsSL https://nvidia.github.io/libnvidia-container/gpgkey \
+    | sudo gpg --dearmor -o /usr/share/keyrings/nvidia-container-toolkit-keyring.gpg
+curl -s -L https://nvidia.github.io/libnvidia-container/stable/deb/nvidia-container-toolkit.list \
+    | sed 's#deb https://#deb [signed-by=/usr/share/keyrings/nvidia-container-toolkit-keyring.gpg] https://#g' \
+    | sudo tee /etc/apt/sources.list.d/nvidia-container-toolkit.list
+sudo apt-get update
+
+
+sudo apt-get update
+sudo apt-get install -y nvidia-container-toolkit
+
+sudo nvidia-ctk runtime configure --runtime=docker
+sudo systemctl restart docker
+```
+
+Il faut alors utiliser le fichier `docker-compose-nvidia.yml` pour start vos containers:
+
+```bash
+docker compose --file docker-compose-nvidia.yml up -d
+```
 
 ## Problèmes connu sous Windows
 

@@ -22,3 +22,10 @@ services:
     ports:
       - 11434:11434
     entrypoint: ["sh", "/root/.ollama/entrypoint.sh"]
+    deploy:
+      resources:
+        reservations:
+          devices:
+            - driver: nvidia
+              count: all
+              capabilities: [gpu]

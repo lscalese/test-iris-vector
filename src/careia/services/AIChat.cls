@@ -55,9 +55,9 @@ ClassMethod ContextSessionChat() As %Status
 
     Set formatter = ##class(%JSON.Formatter).%New()
 
-    Set template = "En utilisant ces données: {data}. Répond à ce prompt: {question}."
+    Set template = "En utilisant ces données: \n {data} \n. Répond à ces questions : {question}."
 
-    Set data = "il est positif aux allergies aux chats, chiens et graminés."
+    Set data = ..GetStringFileData("/home/irisowner/dev/data/rapport_hospit.txt")
 
     While 1 {
 
@@ -81,11 +81,14 @@ ClassMethod ContextSessionChat() As %Status
         Do formatter.FormatToStream(messages, request.messages)
 
         Set sc = ..SendChat(request, .pResponse)
+
+        ;Set template = "{question}" ; pour ne mettre le context que la première fois
+
         If $$$ISERR(sc) {
             Write !,!, "Error: ",$SYSTEM.Status.GetErrorText(sc) , !
         } else {
             Set responseJSON = {}.%FromJSON(pResponse.message)
-            Write !,!,"Response: ", !,responseJSON.message.content, !
+            Write !,!,"Response: ", !,$Translate(responseJSON.message.content,$Char(10), $Char(13,10)), !
             Do messages.%Push(responseJSON.message)
         }
 
@@ -105,6 +108,17 @@ ClassMethod SendChat(request As careia.messages.requests.OllamaChatRQ, Output pR
     }
 
     Return sc
+}
+
+ClassMethod GetStringFileData(pFileName As %String = "/home/irisowner/dev/data/rapport_hospit.txt") As %String
+{
+    Set file = ##class(%Stream.FileCharacter).%New()
+    Do file.LinkToFile(pFileName)
+    Set content = ""
+    While 'file.AtEnd {
+        Set content = content _ $zcvt(file.Read(), "I", "UTF8")
+    }
+    Return content
 }
 
 }

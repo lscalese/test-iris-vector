@@ -18,6 +18,7 @@ XData ProductionDefinition
     <Setting Target="Adapter" Name="HTTPPort">11434</Setting>
     <Setting Target="Adapter" Name="HTTPServer">ollama</Setting>
     <Setting Target="Host" Name="FailureTimeout">30</Setting>
+    <Setting Target="Host" Name="OllamaModel">mistral</Setting>
   </Item>
   <Item Name="careia.bs.GenerateAnswer" Category="" ClassName="careia.bs.GenerateAnswer" PoolSize="0" Enabled="true" Foreground="false" Comment="" LogTraceEvents="false" Schedule="">
   </Item>
