@@ -14,7 +14,7 @@ Method OnRequest(pRequest As careia.messages.PutPatientDataMSG, Output pResponse
     Set storeEmbeddingRequest.type = pRequest.type
     Set storeEmbeddingRequest.embedding = pVectorResponse.embedding
 
-    Set sc = ..SendRequestSync("careia.bo.StorePatientEmbedding", .storeEmbeddingRequest, .pResponse, 15)
+    Set sc = ..SendRequestSync("careia.bo.StorePatientEmbedding", .storeEmbeddingRequest, .pResponse, 120)
 
     Return sc
 }
