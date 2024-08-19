@@ -34,6 +34,7 @@ Method OnRequest(pRequest As careia.messages.requests.PatientEmbeddingRQ, Output
         Set sc = ..SendRequestSync("careia.bo.StorePatientEmbedding", .storeEmbeddingRequest, .pResponse, 15)
     }
 
+
     Return sc
 }
 
