@@ -22,18 +22,20 @@ ClassMethod putPatientData(messageRequest As careia.rest.requests.putPatientData
 }
 
 /// Please note that the positional parameters are passed by the argv argument vector.
-ClassMethod InvokePutPatientData(message) As %DynamicObject
+ClassMethod InvokePutPatientData(message As %DynamicObject) As %DynamicObject
 {
 	Set response = {}
-	Set sc = ##class(Ens.Director).CreateBusinessService("careia.bs.PutPatientDataBS", .instance)
+
+	Set sc = ##class(careia.services.PatientEmbeddingsService).PutPatientEmbedding(message.patientId, message.type, message.sentences)
+	
 	If $$$ISOK(sc) {
 		#dim response as %DynamicObject
-		Set sc = instance.OnProcessInput(message, .pResponse)
-		Set response.status = pResponse.status
-		Set response.message = pResponse.message
+		Set response.status = $Select($$$ISOK(sc):"OK",1:"ERROR")
+		Set response.message = $Select($$$ISOK(sc):"Patient data added to the queue successfully",1:$SYSTEM.Status.GetErrorText(sc))
 	}
 
 	If $$$ISERR(sc) $$$ThrowStatus(sc)
+	
 	Return response
 }
 

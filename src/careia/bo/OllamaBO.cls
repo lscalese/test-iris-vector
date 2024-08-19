@@ -7,7 +7,7 @@ Parameter SETTINGS = "OllamaModel";
 
 Property Adapter As EnsLib.HTTP.OutboundAdapter;
 
-Property OllamaModel As %String [ InitialExpression = "orca-mini" ];
+Property OllamaModel As %String [ InitialExpression = "mistral" ];
 
 /// Implement operationId : apiembeddingsPOST
 /// post /api/embeddings
@@ -31,7 +31,9 @@ Method embeddingsPOST(requestMessage As Ens.StringContainer, Output responseMess
 	Set sc = ..Adapter.SendFormDataArray(.pHttpResponse, "post", pHttpRequestIn, , , ..Adapter.URL _ "/api/embed")
 
     If $$$ISERR(sc) {
-        $$$LOGINFO(pHttpResponse.Data.Read())
+        if $IsObject($Get(pHttpResponse)) {
+            $$$LOGINFO(pHttpResponse.Data.Read())
+        }
         Return sc
     }
 
@@ -40,7 +42,9 @@ Method embeddingsPOST(requestMessage As Ens.StringContainer, Output responseMess
     
     If pHttpResponse.StatusCode = "200" {
         Set json = {}.%FromJSON(pHttpResponse.Data)
-        $$$LOGINFO(json.%ToJSON())
+        Set formatterJSON = ##class(%JSON.Formatter).%New()
+        Do formatterJSON.FormatToString(json, .formattedJSON)
+        $$$LOGINFO(formattedJSON)
         Set responseMessage = ##class(careia.messages.VectorResponseMSG).%New()
         Set responseMessage.embedding = responseMessage.embeddingDisplayToLogical(json.embeddings.%Get(0))
     }

@@ -25,6 +25,52 @@ ClassMethod PutPatientData(patientId As %Integer, type As %String, sentences As 
     Return sc
 }
 
+ClassMethod PutPatientEmbedding(patientId As %Integer, type As %String, sentences As %ListOfDataTypes) As %Status
+{
+    Set pRequest = ##class(careia.messages.requests.PatientEmbeddingRQ).%New()
+    Set pRequest.patientId = patientId
+    Set pRequest.type = type
+
+    #dim iter As %Iterator.Array
+
+    Set key = ""
+
+    For  {
+        Set value = sentences.GetNext(.key)
+        If key = "" Quit
+
+        Do pRequest.document.Write(value)
+    }
+
+    Set sc = ##class(Ens.Director).CreateBusinessService("careia.bs.PutPatientDataBS", .instance)
+
+    If $$$ISERR(sc) Return sc
+
+    Set sc = instance.OnProcessInput(pRequest, .pResponse)
+
+    Return sc
+}
+
+ClassMethod PutPatientEmbeddingFile(patientId As %Integer, type As %String, file As %String = "/home/irisowner/dev/data/rapport_hospit.txt") As %Status
+{
+    Set pRequest = ##class(careia.messages.requests.PatientEmbeddingRQ).%New()
+    Set pRequest.patientId = patientId
+    Set pRequest.type = "report"
+
+    Set fileCharacter = ##class(%Stream.FileCharacter).%New()
+    Do fileCharacter.LinkToFile(file)
+    
+    Do pRequest.document.Write($zcvt(fileCharacter.Read(), "I", "UTF8"))
+
+    Set sc = ##class(Ens.Director).CreateBusinessService("careia.bs.PutPatientDataBS", .instance)
+
+    If $$$ISERR(sc) Return sc
+
+    Set sc = instance.OnProcessInput(pRequest, .pResponse)
+
+    Return sc
+}
+
 ClassMethod GenerateAnswer(prompt As %String, model As %String = "", Output pResponse As careia.messages.responses.OllamaGenerateRSP = "") As %Status
 {
     Set sc = $$$OK

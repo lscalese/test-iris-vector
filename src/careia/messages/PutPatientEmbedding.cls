@@ -7,6 +7,10 @@ Property embedding As %Vector;
 
 Property type As %String;
 
+Property chunk As %String(MAXLEN = 3000000);
+
+Property sourceId As %Integer;
+
 Storage Default
 {
 <Data name="PutPatientEmbeddingDefaultData">
@@ -19,6 +23,12 @@ Storage Default
 </Value>
 <Value name="3">
 <Value>type</Value>
+</Value>
+<Value name="4">
+<Value>chunk</Value>
+</Value>
+<Value name="5">
+<Value>sourceId</Value>
 </Value>
 </Data>
 <DefaultData>PutPatientEmbeddingDefaultData</DefaultData>

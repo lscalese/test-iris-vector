@@ -5,17 +5,11 @@ Parameter ADAPTER;
 
 Parameter TARGETBP = "careia.bp.PutPatientDataBP";
 
-Method OnProcessInput(pInput As careia.rest.model.putPatientDatabody, Output pOutput As %RegisteredObject, ByRef pHint As %String) As %Status
+Method OnProcessInput(pInput As careia.messages.requests.PatientEmbeddingRQ, Output pOutput As %RegisteredObject, ByRef pHint As %String) As %Status
 {
     Set sc = $$$OK
-    set pOutput = { "responseText" : "Hello world!" }
-
-    Set request = ##class(careia.messages.PutPatientDataMSG).%New()
-    Set request.patientId = pInput.patientId
-    Set request.sentences = pInput.sentences
-    Set request.type = pInput.type
-
-    Set sc = ..SendRequestAsync(..#TARGETBP, request, "Send async request to add patient data vector")
+    
+    Set sc = ..SendRequestAsync(..#TARGETBP, pInput, "Send async request to add patient data vector")
 
     Set pOutput = ##class(careia.messages.ReturnMSG).%New()
 

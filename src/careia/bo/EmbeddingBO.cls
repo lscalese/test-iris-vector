@@ -8,7 +8,7 @@ Method OnMessage(pRequest As %Persistent, Output pResponse As %Persistent) As %S
     Return sc
 }
 
-Method GetEmbeddingForPatient(pRequest As careia.messages.PutPatientDataMSG, Output pResponse As careia.messages.VectorResponseMSG) As %Status
+Method GetEmbeddingForPatient(pRequest As Ens.StringContainer, Output pResponse As careia.messages.VectorResponseMSG) As %Status
 {
     Set sc = $$$OK
 
@@ -16,9 +16,7 @@ Method GetEmbeddingForPatient(pRequest As careia.messages.PutPatientDataMSG, Out
 
     Set pResponse = ##class(careia.messages.VectorResponseMSG).%New()
 
-    Set str = pRequest.sentences.GetAt(1)
-
-    Set pResponse.embedding = pResponse.embeddingDisplayToLogical(..GetEmbeddingPy(str))
+    Set pResponse.embedding = pResponse.embeddingDisplayToLogical(..GetEmbeddingPy(pRequest.StringValue))
 
     Return sc
 }
@@ -55,7 +53,7 @@ return irisArray
 XData MessageMap
 {
 <MapItems>
-    <MapItem MessageType="careia.messages.PutPatientDataMSG">
+    <MapItem MessageType="Ens.StringContainer">
         <Method>GetEmbeddingForPatient</Method>
     </MapItem>
 </MapItems>

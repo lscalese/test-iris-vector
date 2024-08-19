@@ -5,7 +5,7 @@ Method OnProcessInput(pInput As careia.messages.requests.OllamaChatRQ, Output pO
 {
     Set sc = $$$OK
     
-    Set sc = ..SendRequestSync("careia.bo.OllamaBO", .pInput, .pOutput, 30)
+    Set sc = ..SendRequestSync("OllamaRESTOperation", .pInput, .pOutput, 30)
 
     Return sc
 }

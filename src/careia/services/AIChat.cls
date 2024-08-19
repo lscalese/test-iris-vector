@@ -86,7 +86,7 @@ ClassMethod ContextSessionChat() As %Status
 
         If $$$ISERR(sc) {
             Write !,!, "Error: ",$SYSTEM.Status.GetErrorText(sc) , !
-        } else {
+        } Else {
             Set responseJSON = {}.%FromJSON(pResponse.message)
             Write !,!,"Response: ", !,$Translate(responseJSON.message.content,$Char(10), $Char(13,10)), !
             Do messages.%Push(responseJSON.message)

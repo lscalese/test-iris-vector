@@ -5,6 +5,8 @@ Property status As %String;
 
 Property message As %String(MAXLEN = 2048, TRUNCATE = 1);
 
+Property body As %Stream.GlobalCharacter;
+
 Storage Default
 {
 <Data name="ReturnMSGDefaultData">
@@ -14,6 +16,9 @@ Storage Default
 </Value>
 <Value name="2">
 <Value>message</Value>
+</Value>
+<Value name="3">
+<Value>body</Value>
 </Value>
 </Data>
 <DefaultData>ReturnMSGDefaultData</DefaultData>
