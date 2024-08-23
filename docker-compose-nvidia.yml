@@ -17,6 +17,7 @@ services:
     image: ollama/ollama:latest
     environment:
       - MODEL=mistral
+      - EMBEDDINGMODEL=mxbai-embed-large
     volumes:
       - ./ollama/:/root/.ollama
     ports:

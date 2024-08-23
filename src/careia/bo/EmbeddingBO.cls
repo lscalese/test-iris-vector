@@ -33,7 +33,10 @@ import sentence_transformers
 # LSC:
 # Vérifier sur https://sbert.net/docs/sentence_transformer/pretrained_models.html
 # si un autre modèle ne serait pas plus adapté pour le français.
+
 model = sentence_transformers.SentenceTransformer('all-MiniLM-L6-v2')
+#model = sentence_transformers.SentenceTransformer('paraphrase-multilingual-MiniLM-L12-v2')
+
 
 embeddings = model.encode(sentences)
 

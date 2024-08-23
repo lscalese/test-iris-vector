@@ -48,9 +48,8 @@ ClassMethod GetSimilarDesc(searchTerms As %String)
         while rset.%Next() {
             w !,"-------------------"
             w !,"cosine: ",rset.%Get("cosine")
-            w !,$tr(rset.%Get("chunk"),$c(10),$c(13,10))
+            w !,$Replace(rset.%Get("chunk"),$c(10),$c(13,10))
             w !,"-------------------"
-            ;set retrievedInfo = retrievedInfo_" chunk: "_rset.%Get("chunk")
         }
         return retrievedInfo
     }

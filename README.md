@@ -114,3 +114,11 @@ Ensuite exécutez:
 ollama pull Nom_Du_Model_Souhaité
 ```
 
+
+
+## Ref
+
+### Model
+
+https://huggingface.co/mixedbread-ai/mxbai-embed-large-v1
+

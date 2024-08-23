@@ -3,11 +3,13 @@ Class careia.bo.OllamaBO Extends Ens.BusinessOperation
 
 Parameter ADAPTER = "EnsLib.HTTP.OutboundAdapter";
 
-Parameter SETTINGS = "OllamaModel";
+Parameter SETTINGS = "OllamaModel,EmbeddingModel";
 
 Property Adapter As EnsLib.HTTP.OutboundAdapter;
 
 Property OllamaModel As %String [ InitialExpression = "mistral" ];
+
+Property EmbeddingModel As %String [ InitialExpression = "mxbai-embed-large" ];
 
 /// Implement operationId : apiembeddingsPOST
 /// post /api/embeddings
@@ -22,7 +24,7 @@ Method embeddingsPOST(requestMessage As Ens.StringContainer, Output responseMess
     Set str = ""
 
     Set body = {
-        "model" :(..OllamaModel),
+        "model" :(..EmbeddingModel),
         "input" :(requestMessage.StringValue)
     }
 
@@ -61,6 +63,9 @@ Method generatePOST(requestMessage As careia.messages.requests.OllamaGenerateRQ,
 	Set pHttpRequestIn = ##class(%Net.HttpRequest).%New()
     Set pHttpRequestIn.ContentType = "application/json"
     Do pHttpRequestIn.SetHeader("accept", "application/json")
+
+    Set responseStream = ##class(careia.data.StreamingRsp).%New()
+    Set responseStream.EventType = "Demo"
     
     Set str = ""
 
@@ -70,6 +75,10 @@ Method generatePOST(requestMessage As careia.messages.requests.OllamaGenerateRQ,
         "model" :(model),
         "prompt" :(requestMessage.prompt),
         "stream" : false
+    }
+
+    If body.stream {
+        Set pHttpRequestIn.ResponseStream = responseStream
     }
 
     Do body.%ToJSON(pHttpRequestIn.EntityBody)
@@ -87,8 +96,21 @@ Method generatePOST(requestMessage As careia.messages.requests.OllamaGenerateRQ,
     #dim json As %DynamicObject
     
     If pHttpResponse.StatusCode = "200" {
-        Set json = {}.%FromJSON(pHttpResponse.Data)
-        
+
+        If body.stream {
+            Set nChunk = responseStream.JSONChunk.Count()
+            If nChunk > 0 {
+                Set json = responseStream.JSONChunk.GetAt(nChunk)
+                Set json.response = ""
+                For i=1:1:nChunk {
+                    Set json.response = json.response _ responseStream.JSONChunk.GetAt(i).response
+                }
+            }
+        } Else {
+
+            Set json = {}.%FromJSON(pHttpResponse.Data)
+        }
+
         Set formatter = ##class(%JSON.Formatter).%New()
         Do formatter.FormatToString(json, .formattedJSON)
         $$$LOGINFO(json.%ToJSON())
@@ -109,6 +131,9 @@ Method chatPOST(requestMessage As careia.messages.requests.OllamaChatRQ, Output 
 	Set pHttpRequestIn = ##class(%Net.HttpRequest).%New()
     Set pHttpRequestIn.ContentType = "application/json"
     Do pHttpRequestIn.SetHeader("accept", "application/json")
+
+    Set responseStream = ##class(careia.data.StreamingRsp).%New()
+    Set responseStream.EventType = "Demo"
     
     Set str = ""
 
@@ -118,6 +143,10 @@ Method chatPOST(requestMessage As careia.messages.requests.OllamaChatRQ, Output 
         "model" :(model),
         "messages" :({}.%FromJSON(requestMessage.messages)),
         "stream" : false
+    }
+
+    If body.stream {
+        Set pHttpRequestIn.ResponseStream = responseStream
     }
 
     Do body.%ToJSON(pHttpRequestIn.EntityBody)
@@ -135,7 +164,19 @@ Method chatPOST(requestMessage As careia.messages.requests.OllamaChatRQ, Output 
     #dim json As %DynamicObject
     
     If pHttpResponse.StatusCode = "200" {
-        Set json = {}.%FromJSON(pHttpResponse.Data)
+        If body.stream {
+            Set nChunk = responseStream.JSONChunk.Count()
+            If nChunk > 0 {
+                Set json = responseStream.JSONChunk.GetAt(nChunk)
+                Set json.response = ""
+                For i=1:1:nChunk {
+                    Set json.response = json.response _ responseStream.JSONChunk.GetAt(i).response
+                }
+            }
+        } Else {
+
+            Set json = {}.%FromJSON(pHttpResponse.Data)
+        }
         
         Set formatter = ##class(%JSON.Formatter).%New()
         Do formatter.FormatToString(json, .formattedJSON)

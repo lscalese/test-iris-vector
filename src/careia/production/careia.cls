@@ -22,8 +22,10 @@ XData ProductionDefinition
     <Setting Target="Host" Name="OllamaModel">mistral</Setting>
     <Setting Target="Adapter" Name="HTTPPort">11434</Setting>
     <Setting Target="Adapter" Name="HTTPServer">ollama</Setting>
+    <Setting Target="Host" Name="EmbeddingModel">mxbai-embed-large</Setting>
   </Item>
   <Item Name="EmbeddingProcess" Category="" ClassName="careia.bp.EmbeddingBP" PoolSize="1" Enabled="true" Foreground="false" Comment="" LogTraceEvents="false" Schedule="">
+    <Setting Target="Host" Name="TargetVectorBuilder">OllamaRESTOperation</Setting>
   </Item>
   <Item Name="EmbeddingService" Category="" ClassName="careia.bs.Embedding" PoolSize="0" Enabled="true" Foreground="false" Comment="" LogTraceEvents="false" Schedule="">
   </Item>

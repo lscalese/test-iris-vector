@@ -61,7 +61,7 @@ ClassMethod ContextSessionChat() As %Status
 
     While 1 {
 
-        Write !, "You: ",!
+        Write !,!, "You: ",!
 
         Read question
 
@@ -82,7 +82,7 @@ ClassMethod ContextSessionChat() As %Status
 
         Set sc = ..SendChat(request, .pResponse)
 
-        Set template = "{question}" ; pour ne mettre le context que la première fois
+        ;Set template = "{question}" ; pour ne mettre le context que la première fois
 
         If $$$ISERR(sc) {
             Write !,!, "Error: ",$SYSTEM.Status.GetErrorText(sc) , !

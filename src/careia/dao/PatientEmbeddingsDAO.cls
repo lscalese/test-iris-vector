@@ -49,7 +49,7 @@ ClassMethod StoreEmbeddingByDTO(dto As %DynamicObject) As %Status
         Set patientEmbeddings.patientId = dto.patientId
         Set patientEmbeddings.chunk = dto.chunk
     }
-
+    
     Set patientEmbeddings.embedding = patientEmbeddings.embeddingDisplayToLogical(dto.embedding)
     Set patientEmbeddings.type = dto.type
     Do patientEmbeddings.sourceSetObjectId(dto.sourceId)

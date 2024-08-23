@@ -1,7 +1,7 @@
 Class careia.data.PatientEmbeddings Extends %Persistent
 {
 
-Property embedding As %Vector(DATATYPE = "DOUBLE", LEN = 384);
+Property embedding As %Vector(DATATYPE = "DOUBLE", LEN = 1024);
 
 Property patientId As %Integer [ Required ];
 
@@ -21,7 +21,7 @@ Index sourceI On source;
 /// Description of the foreign key
 ForeignKey sourceFK(source) References careia.data.Source() [ OnDelete = cascade ];
 
-Index uniqueI On (patientId, hash) [ Unique ];
+Index uniqueI On (patientId, source, hash) [ Unique ];
 
 Storage Default
 {

@@ -21,7 +21,7 @@ Method StorePatientEmbedding(pRequest As careia.messages.PutPatientEmbedding, Ou
         "chunk": (pRequest.chunk),
         "sourceId": (pRequest.sourceId)
     }
-
+    
     Set sc = ##class(careia.dao.PatientEmbeddingsDAO).StoreEmbeddingByDTO(dto)
     
     Set pResponse = ##class(careia.messages.ReturnMSG).%New()

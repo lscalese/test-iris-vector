@@ -21,6 +21,12 @@
         CookiePath="/careia/"
         UseCookies="2"
       />
+      <Dependencies>
+        <ModuleReference>
+          <Name>ipc-utils</Name>
+          <Version>*</Version>
+        </ModuleReference>
+      </Dependencies>
     </Module>
   </Document>
 </Export>
