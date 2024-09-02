@@ -51,13 +51,21 @@ ClassMethod ContextSessionChat() As %Status
 
     Write !, "Context SessionChat Started (type 'exit' to quit)",!
 
-    Set messages = []
+    
+    Set messages = [], user = "Dr Sombrelune", patient = "Moisés García Pérez"
 
     Set formatter = ##class(%JSON.Formatter).%New()
 
-    Set template = "En utilisant ces données: \n {data} \n. Répond à ces questions : {question}."
+    Set systemMsg = "Parle en français.  Tu assistes {user}  qui consulte les données du patient {patient}."
 
-    Set data = ..GetStringFileData("/home/irisowner/dev/data/rapport_hospit.txt")
+    For var = $lb("{user}",user), $lb("{patient}",patient) {
+        Set systemMsg = $Replace(systemMsg, $lg(var,1), $lg(var,2))
+    }
+
+    Do messages.%Push({
+        "role": "system",
+        "content": (systemMsg)
+    })
 
     While 1 {
 
@@ -68,27 +76,32 @@ ClassMethod ContextSessionChat() As %Status
         If question = "exit" {
             Return $$$OK
         }
-
-        Set prompt = $Replace(template, "{question}", question)
-        Set prompt = $Replace(prompt, "{data}", data)
-
+        
         Do messages.%Push({
             "role": "user",
-            "content": (prompt)
+            "content": (question)
         })
 
+        
+        
         Set request = ##class(careia.messages.requests.OllamaChatRQ).%New()
         Do formatter.FormatToStream(messages, request.messages)
 
-        Set sc = ..SendChat(request, .pResponse)
+        Set request.options = {
+            "temperature" : 0.2
+        }.%ToJSON()
 
-        ;Set template = "{question}" ; pour ne mettre le context que la première fois
+        Set sc = ..SendChat(request, .pResponse)
 
         If $$$ISERR(sc) {
             Write !,!, "Error: ",$SYSTEM.Status.GetErrorText(sc) , !
         } Else {
             Set responseJSON = {}.%FromJSON(pResponse.message)
-            Write !,!,"Response: ", !,$Translate(responseJSON.message.content,$Char(10), $Char(13,10)), !
+            ;Write !,!,"Response: ", !,$Translate(responseJSON.message.content,$Char(10), $Char(13,10)), !
+
+            Write !,!,"Response: ", ! ;,responseJSON.message.content, !
+            zw responseJSON.message.content
+            Write !
             Do messages.%Push(responseJSON.message)
         }
 
@@ -96,6 +109,47 @@ ClassMethod ContextSessionChat() As %Status
     }
 
     Return sc
+}
+
+ClassMethod IsAboutPatient(question As %String, history As %DynamicObject = {[]}, Output jsonResponse As %DynamicObject) As %Boolean
+{
+    Set sc = $$$OK
+    
+    Set system = "L'utilisateur consulte les données d'un patient et peut vous poser des questions le concernant ou non. "
+                _ "Votre rôle est uniquement de déterminer si le prompt concerne ce patient. Ne répondez pas au prompt. "
+                _ "Retournez un JSON avec `aboutPatient` défini à `true` si le prompt concerne le patient, ou à `false` pour toute autre demande."
+
+    Set formatter = ##class(%JSON.Formatter).%New()
+
+    ;w !,system,!
+
+    Set messages = [{
+        "role": "system",
+        "content": (system)
+    },{
+        "role": "user",
+        "content": (question)
+    }]
+    
+    Set request = ##class(careia.messages.requests.OllamaChatRQ).%New()
+
+    Set request.options = {
+        "seed" : 150,
+        "temperature" : 0.8
+    }.%ToJSON()
+
+    Do formatter.FormatToStream(messages, request.messages)
+
+    $$$TOE(sc, ..SendChat(request, .pResponse))
+
+    Set contentResponse = {}.%FromJSON(pResponse.message).message.content
+    
+    Set jsonResponse = {}.%FromJSON(contentResponse)
+    
+    Do formatter.FormatToString(jsonResponse, .formattedJSON)
+    Write:$Get(%zverbose,0) !,formattedJSON,!
+
+    Return jsonResponse.aboutPatient
 }
 
 ClassMethod SendChat(request As careia.messages.requests.OllamaChatRQ, Output pResponse As careia.messages.responses.OllamaChatRSP = "") As %Status

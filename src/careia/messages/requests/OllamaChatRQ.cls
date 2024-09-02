@@ -19,12 +19,17 @@ Property model As %String(MAXLEN = 128);
 ///   ]
 Property messages As %Stream.GlobalCharacter;
 
+Property options As %String;
+
 Storage Default
 {
 <Data name="OllamaChatRQDefaultData">
 <Subscript>"OllamaChatRQ"</Subscript>
 <Value name="1">
 <Value>model</Value>
+</Value>
+<Value name="2">
+<Value>options</Value>
 </Value>
 </Data>
 <Data name="messages">

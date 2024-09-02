@@ -16,7 +16,7 @@ services:
   ollama:
     image: ollama/ollama:latest
     environment:
-      - MODEL=mistral
+      - MODEL=mixtral:8x7b
       - EMBEDDINGMODEL=mxbai-embed-large
     volumes:
       - ./ollama/:/root/.ollama

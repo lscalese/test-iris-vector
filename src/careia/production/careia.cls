@@ -19,7 +19,7 @@ XData ProductionDefinition
   <Item Name="SentenceTransformer" Category="" ClassName="careia.bo.EmbeddingBO" PoolSize="1" Enabled="true" Foreground="false" Comment="Business operation dédié à la création d&apos;un vecteur avec la librairie Python SentenceTransformer." LogTraceEvents="false" Schedule="">
   </Item>
   <Item Name="OllamaRESTOperation" Category="" ClassName="careia.bo.OllamaBO" PoolSize="1" Enabled="true" Foreground="false" Comment="Business operation permettant d&apos;interroger Ollama via son API REST." LogTraceEvents="false" Schedule="">
-    <Setting Target="Host" Name="OllamaModel">mistral</Setting>
+    <Setting Target="Host" Name="OllamaModel">mixtral:8x7b</Setting>
     <Setting Target="Adapter" Name="HTTPPort">11434</Setting>
     <Setting Target="Adapter" Name="HTTPServer">ollama</Setting>
     <Setting Target="Host" Name="EmbeddingModel">mxbai-embed-large</Setting>
@@ -28,6 +28,8 @@ XData ProductionDefinition
     <Setting Target="Host" Name="TargetVectorBuilder">OllamaRESTOperation</Setting>
   </Item>
   <Item Name="EmbeddingService" Category="" ClassName="careia.bs.Embedding" PoolSize="0" Enabled="true" Foreground="false" Comment="" LogTraceEvents="false" Schedule="">
+  </Item>
+  <Item Name="careia.bp.ChatBP" Category="" ClassName="careia.bp.ChatBP" PoolSize="1" Enabled="true" Foreground="false" Comment="" LogTraceEvents="false" Schedule="">
   </Item>
 </Production>
 }

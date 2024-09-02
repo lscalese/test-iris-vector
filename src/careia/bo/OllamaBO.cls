@@ -145,6 +145,25 @@ Method chatPOST(requestMessage As careia.messages.requests.OllamaChatRQ, Output 
         "stream" : false
     }
 
+    
+
+    If requestMessage.options '= "" {
+        Set options = {}.%FromJSON(requestMessage.options)
+    } Else {
+        Set options = {
+            "temperature" : 0.8
+        }
+    }
+
+    If options.format '= "" {
+        Set body.format = options.format
+        Do options.%Remove("format")
+    }
+
+    Set body.options = options
+
+    
+
     If body.stream {
         Set pHttpRequestIn.ResponseStream = responseStream
     }

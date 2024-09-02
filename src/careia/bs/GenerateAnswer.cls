@@ -7,7 +7,7 @@ Method OnProcessInput(pInput As careia.messages.requests.OllamaGenerateRQ, Outpu
 {
     Set sc = $$$OK
     
-    Set sc = ..SendRequestSync("OllamaRESTOperation", .pInput, .pOutput, 15)
+    Set sc = ..SendRequestSync("OllamaRESTOperation", .pInput, .pOutput, 30)
 
     Return sc
 }
